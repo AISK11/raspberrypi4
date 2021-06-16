@@ -6,6 +6,10 @@
 
 # Packages installed for X:
 # sudo apt --no-install-recommends install xserver-xorgxserver-xorg-video-fbdev xinit x11-xserver-utils
+
+# Change default shell:
+# user$ chsh -s /bin/zsh
+# root# usermod -s /bin/zsh <USER>
 ##################################################################
 
 # Security clear:
