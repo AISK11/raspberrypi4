@@ -15,8 +15,10 @@
 # Security clear:
 clear
 
-# command prompt:
+# command prompt (https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Prompt-Expansion):
 export PS1="%B%F{#d00000}%n%f%F{#faa307}@%f%F{#d00000}%m%f %F{#faa307}%~%f %F{#d00000}>%f%b %F{#ffffff}"
+# export PS1=$'\n'"20%D %* %y"$'\n'"%n@%M %~ >"
+# export PS1=$'\n'"%{$fg[green]%}20%D %*%{$reset_color%} %{$fg[yellow]%}%y%{$reset_color%}"$'\n'"%{$fg[red]%}%n%{$reset_color%}%{$fg[yellow]%}@%{$reset_color%}%%{$fg[red]%}%M%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%} %{$fg[red]%}>%{$reset_color%} %{$fg[white]%}"
 
 # Autocompletion:
 autoload -U compinit
@@ -43,6 +45,13 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]];
 then 
     source /etc/profile
     startx
+fi
+
+# enable auto-suggestions based on the history:
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # change suggestion color:
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
 
 # Syntax highlighting:
