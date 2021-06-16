@@ -15,10 +15,11 @@
 # Security clear:
 clear
 
+autoload -U colors && colors
 # command prompt (https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Prompt-Expansion):
 export PS1="%B%F{#d00000}%n%f%F{#faa307}@%f%F{#d00000}%m%f %F{#faa307}%~%f %F{#d00000}>%f%b %F{#ffffff}"
 # export PS1=$'\n'"20%D %* %y"$'\n'"%n@%M %~ > "
-# export PS1=$'\n'"20%D %* %y"$'\n'"%n@%M %~ > "
+# export PS1=$'\n'"%F{214}0%D %* %y"$'\n'"%n@%M %~ > "
 
 # Autocompletion:
 autoload -U compinit
