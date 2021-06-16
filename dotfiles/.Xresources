@@ -1,0 +1,40 @@
+##################################################################
+# Author: AISK11
+
+# Packages installed:
+# sudo apt install rxvt-unicode
+##################################################################
+
+! Xft: Antialiasing and DPI:
+Xft.antialias: true
+Xft.dpi: 100
+
+! Font:
+URxvt.font: xft:DejavuSansMono:size=10
+
+! Disable Scrollbar:
+URxvt.scrollBar: false
+
+! Transparency - higher value = higher transparency:
+URxvt.transparent: true
+URxvt.shading: 67
+
+! Fade unfocused window:
+URxvt.fading: 30
+
+! Line space:
+URxvt.lineSpace: 0
+
+! Colors:
+URxvt*background: #000000
+URxvt*foreground: #ffffff
+
+! URxvt scroll lines:
+URxvt.saveLines: 20000
+
+! Copy Paste:
+URxvt.iso14755: False
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.keysym.Control-Meta-c: builtin-string:
+URxvt.keysym.Control-Meta-v: builtin-string:
