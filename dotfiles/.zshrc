@@ -3,6 +3,9 @@
 
 # Packages installed:
 # sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
+
+# Packages installed for X:
+# sudo apt --no-install-recommends install xserver-xorgxserver-xorg-video-fbdev xinit x11-xserver-utils
 ##################################################################
 
 # Security clear:
