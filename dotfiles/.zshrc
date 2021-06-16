@@ -1,9 +1,8 @@
+##################################################################
 # Author: AISK11
 
 # Packages installed:
 # sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
-
-# set
 ##################################################################
 
 # Security clear:
