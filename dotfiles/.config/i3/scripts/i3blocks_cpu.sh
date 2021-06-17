@@ -24,11 +24,11 @@ echo "${USAGE1}.${USAGE2}%"
 echo "${USAGE1}.${USAGE2}%"
 
 # Color
-if [[ ${USAGE1} -le 33 ]]; then
+if [[ ${USAGE1} -lt 33 ]]; then
     echo "#4BFF57"
-elif [[ ${USAGE1} -le 66 ]]; then
+elif [[ ${USAGE1} -lt 66 ]]; then
     echo "#FFFF4A"  
-elif [[ ${USAGE1} -le 90 ]]; then
+elif [[ ${USAGE1} -lt 90 ]]; then
     echo "#FF994A" 
 else
     echo "#FF4A4A"
