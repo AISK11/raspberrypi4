@@ -28,7 +28,6 @@ fi
 echo "${MEM_PERCENTAGE}%"
 echo "${MEM_PERCENTAGE}%"
 
-
 # Color
 if [[ ${MEM_PERCENTAGE} -le 33 ]]; then
     echo "#4BFF57"
