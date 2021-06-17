@@ -17,9 +17,9 @@ echo "CPU ${CPU_TEMP_FULL}; BRD ${BRD_TEMP_FULL}"
 echo "CPU ${CPU_TEMP_FULL}; BRD ${BRD_TEMP_FULL}"
 
 # Color
-if [ ${CPU_TEMP} -lt 65 ] && [ ${BRD_TEMP} -lt 65 ]; then
+if [ ${CPU_TEMP} -lt 50 ] && [ ${BRD_TEMP} -lt 50 ]; then
     echo "#4BFF57"
-elif [ ${CPU_TEMP} -lt 80 ] && [ ${BRD_TEMP} -lt 80 ]; then
+elif [ ${CPU_TEMP} -lt 65 ] && [ ${BRD_TEMP} -lt 65 ]; then
     echo "#FFFF4A"  
 elif [ ${CPU_TEMP} -lt 80 ] && [ ${BRD_TEMP} -lt 80 ]; then
     echo "#FF994A"
