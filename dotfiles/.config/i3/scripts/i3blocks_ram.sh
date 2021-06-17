@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 # Author: AISK11
 # Description: This script shows how much RAM is used (buff/cache) in percentage.
@@ -19,3 +19,13 @@ USED_MEM=$((${MemTotal} + ${Shmem} - ${MemFree} - ${Buffers} - ${Cached} - ${SRe
 
 # Show RAM usage in percentage.
 echo "$((USED_MEM * 100 / MemTotal))%"
+echo "$((USED_MEM * 100 / MemTotal))%"
+
+# Color
+if [[ $((USED_MEM * 100 / MemTotal)) -le 33 ]]; then
+    echo "#4BFF57"
+elif [[ $((USED_MEM * 100 / MemTotal)) -le 66 ]]; then
+    echo "#FF994A"
+else
+    echo "#FF4A4A"
+fi
