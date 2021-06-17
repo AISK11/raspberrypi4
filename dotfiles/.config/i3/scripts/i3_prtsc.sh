@@ -7,7 +7,7 @@
 # Installation:
 # sudo apt install scrot
 
-DIRECTORY="~/.screenshots/"
+DIRECTORY="/home/$(whoami)/.screenshots/"
 
 if [ -d ${DIRECTORY} ]
 then
