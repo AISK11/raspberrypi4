@@ -32,7 +32,9 @@ echo "${MEM_PERCENTAGE}%"
 if [[ ${MEM_PERCENTAGE} -le 33 ]]; then
     echo "#4BFF57"
 elif [[ ${MEM_PERCENTAGE} -le 66 ]]; then
-    echo "#FF994A"
+    echo "#FFFF4A" 
+elif [[ ${MEM_PERCENTAGE} -le 90 ]]; then
+    echo "#FF994A" 
 else
     echo "#FF4A4A"
 fi
