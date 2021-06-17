@@ -11,8 +11,8 @@ DIRECTORY="~/.screenshots/"
 
 if [ -d ${DIRECTORY} ]
 then
-    scrot --silent --pointer ${DIRECTORY}$(date '+%Y-%m-%d_%H:%M:%S').png
+    scrot --silent ${DIRECTORY}$(date '+%Y-%m-%d_%H:%M:%S').png
 else
     mkdir -p ~/.screenshots/
-    scrot --silent --pointer ${DIRECTORY}$(date '+%Y-%m-%d_%H:%M:%S').png
+    scrot --silent ${DIRECTORY}$(date '+%Y-%m-%d_%H:%M:%S').png
 fi
