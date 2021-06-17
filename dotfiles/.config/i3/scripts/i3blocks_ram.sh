@@ -16,15 +16,23 @@ Cached=$(cat /proc/meminfo | grep "^Cached" | tr -s ' ' | cut -d' ' -f2)
 SReclaimable=$(cat /proc/meminfo | grep SReclaimable | tr -s ' ' | cut -d' ' -f2)
 
 USED_MEM=$((${MemTotal} + ${Shmem} - ${MemFree} - ${Buffers} - ${Cached} - ${SReclaimable}))
+MEM_PERCENTAGE=$((USED_MEM * 100 / MemTotal))
 
-# Show RAM usage in percentage.
-echo "$((USED_MEM * 100 / MemTotal))%"
-echo "$((USED_MEM * 100 / MemTotal))%"
+# Add leading space in front of variable:
+if [ ${#MEM_PERCENTAGE} -eq 1 ]; then
+    USAGE1="  ${USAGE1}"
+elif [ ${#MEM_PERCENTAGE} -eq 2 ]; then
+    USAGE1=" ${USAGE1}";
+fi
+
+echo "${MEM_PERCENTAGE}%"
+echo "${MEM_PERCENTAGE}%"
+
 
 # Color
-if [[ $((USED_MEM * 100 / MemTotal)) -le 33 ]]; then
+if [[ ${MEM_PERCENTAGE} -le 33 ]]; then
     echo "#4BFF57"
-elif [[ $((USED_MEM * 100 / MemTotal)) -le 66 ]]; then
+elif [[ ${MEM_PERCENTAGE} -le 66 ]]; then
     echo "#FF994A"
 else
     echo "#FF4A4A"
