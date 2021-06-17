@@ -29,11 +29,11 @@ echo "${MEM_PERCENTAGE}%"
 echo "${MEM_PERCENTAGE}%"
 
 # Color
-if [[ ${MEM_PERCENTAGE} -le 33 ]]; then
+if [[ ${MEM_PERCENTAGE} -lt 33 ]]; then
     echo "#4BFF57"
-elif [[ ${MEM_PERCENTAGE} -le 66 ]]; then
+elif [[ ${MEM_PERCENTAGE} -lt 66 ]]; then
     echo "#FFFF4A" 
-elif [[ ${MEM_PERCENTAGE} -le 90 ]]; then
+elif [[ ${MEM_PERCENTAGE} -lt 90 ]]; then
     echo "#FF994A" 
 else
     echo "#FF4A4A"
