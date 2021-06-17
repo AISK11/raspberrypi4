@@ -12,3 +12,7 @@ set expandtab
 
 " Number lines:
 set number
+
+" Colors:
+syntax on
+colorscheme murphy
