@@ -20,9 +20,9 @@ MEM_PERCENTAGE=$((USED_MEM * 100 / MemTotal))
 
 # Add leading space in front of variable:
 if [ ${#MEM_PERCENTAGE} -eq 1 ]; then
-    USAGE1="  ${USAGE1}"
+    MEM_PERCENTAGE="  ${MEM_PERCENTAGE}"
 elif [ ${#MEM_PERCENTAGE} -eq 2 ]; then
-    USAGE1=" ${USAGE1}";
+    MEM_PERCENTAGE=" ${MEM_PERCENTAGE}";
 fi
 
 echo "${MEM_PERCENTAGE}%"
