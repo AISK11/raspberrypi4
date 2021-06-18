@@ -5,7 +5,7 @@
 # sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # Packages installed for X:
-# sudo apt --no-install-recommends install xserver-xorgxserver-xorg-video-fbdev xinit x11-xserver-utils
+# sudo apt --no-install-recommends install xserver-xorg xserver-xorg-video-fbdev xinit x11-xserver-utils
 
 # Change default shell:
 # user$ chsh -s /bin/zsh
