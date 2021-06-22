@@ -176,3 +176,7 @@ exec xrdb ~/.Xresources
 exec numlockx on
 # PRINTSCREEN:
 bindsym Print exec ~/.config/i3/scripts/i3_prtsc.sh
+# KEYBOARD SWITCHING:
+exec setxkbmap -layout us,sk-qwerty
+exec setxkbmap -option 'grp:alt_shift_toggle'
+
