@@ -22,7 +22,7 @@ while true; do
     # compare percentage to alert value, if greater or equal, then add 1 strike, else remove strikes
     if [[ ${CPU_USAGE_PERCENTILE} -ge ${ALERT_VALUE} ]]; then
         STRIKES=$((${STRIKES} + 1))
-        CPU_HISTORY[${STRIKES}+1]=${CPU_USAGE_PERCENTILE}
+        CPU_HISTORY[${STRIKES}]=${CPU_USAGE_PERCENTILE}
     else
         STRIKES=0
     fi  
