@@ -29,6 +29,7 @@ while true; do
         
     # if strikes are equal (or greater) than TIME_COUNT, append alarm to FILE
     if [[ ${STRIKES} -ge ${TIME_COUNT} ]]; then
+        STRIKES=0
         echo "$(date '+%Y-%m-%d %H:%M:%S') - ALERT! - CPU USAGE is above ${ALERT_VALUE}, measured every ${TIME_INTERVAL} seconds. Values: ${CPU_HISTORY}" >> ${LOG_FILE}        STRIKES=0
         sleep ${AFTER_ALARM_SLEEP}
     fi      
