@@ -36,8 +36,8 @@ while true; do
         echo "$(date '+%Y-%m-%d %H:%M:%S') - ALERT! - CPU USAGE is above ${ALERT_VALUE}%, measured every ${TIME_INTERVAL} seconds. Values: ${CPU_HISTORY}" >> ${LOG_FILE}
 
         # DEBUG
-        echo "CPU_USAGE = ${CPU_USAGE_PERCENTILE}%; STRIKES = ${STRIKES}"
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - ALERT! - CPU USAGE is above ${ALERT_VALUE}%, measured every ${TIME_INTERVAL} seconds. Values: ${CPU_HISTORY}"
+        #echo "CPU_USAGE = ${CPU_USAGE_PERCENTILE}%; STRIKES = ${STRIKES}"
+        #echo "$(date '+%Y-%m-%d %H:%M:%S') - ALERT! - CPU USAGE is above ${ALERT_VALUE}%, measured every ${TIME_INTERVAL} seconds. Values: ${CPU_HISTORY}"
         # DEBUG END        
 
         # nullify strikes and wait AFTER_ALARM_SLEEP seconds, to avoid spam
