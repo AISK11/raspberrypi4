@@ -1,0 +1,12 @@
+Crontab:
+*/10 * * * * /home/aisk/hard-disk-check.sh
+
+Script:
+sh
+ls /mnt/chia-hdd1/
+ls /mnt/chia-hdd1/ChiaFinalHDD/
+ls /mnt/chia-hdd2/
+ls /mnt/chia-hdd2/hdd2-chia/
+ls /mnt/chia-hdd3/
+ls /mnt/chia-hdd3/hdd3-chia/
+echo "harddisk check completed"
