@@ -3,16 +3,20 @@
 # Location: ~/.config/i3/config
 
 # Packages installed:
-# sudo apt install apt install i3 i3bar i3blocks dmenu i3lock feh numlockx scrot
+# sudo apt install apt install i3 i3bar i3blocks rofi i3lock feh numlockx scrot compton
 ##################################################################
 
 # SET MOD KEY: Window key = Mod4; Alt key = Mod1:
 set $mod Mod4
 
 # i3-gaps SETTINGS:
-#gaps inner 10
-#gaps outer 10
-#smart_gaps on
+gaps inner 10
+gaps outer 10
+smart_gaps on
+
+
+# Dim inactive windows [0-1]:
+exec --no-startup-id compton --xrender-sync --xrender-sync-fence --inactive-dim 0.25 -b
 
 # WINDOW BORDER SIZE:
 default_border pixel 1 
@@ -20,7 +24,7 @@ default_border pixel 1
 #hide_edge_borders both
 
 # FONT FOR WINDOW TITLES AND BAR:
-font pango:DejavuSansMono 10
+font pango:DejavuSansMono 11
 
 
 ### SHORTCUTS:
@@ -29,7 +33,15 @@ bindsym $mod+Return exec i3-sensible-terminal
 # KILL FOCUSED WINDOW:
 bindsym $mod+Shift+q kill
 # DMENU:
-bindsym $mod+d exec dmenu_run -b -fn monospace -nb "#393e46" -nf "#ffd369" -sb "#ffd369" -sf "#393e46" -i
+#bindsym $mod+d exec dmenu_run -b -fn monospace -nb "#393e46" -nf "#ffd369" -sb "#ffd369" -sf "#393e46" -i
+# ROFI ('rofi -dump-xresources'):
+#bindsym $mod+d exec "rofi -modi run -show run -width 25 -lines 10 -columns 1 -font 'DejavuSansMono 11' -bw 1 -location 0 -disable-history -sidebar-mode:false -hide-scrollbar -color-window '#393e46, #ffd369, #ffd369' -color-normal '#393e46, #ffd369, #454b54, #ffd369, #393e46'"
+
+bindsym $mod+d exec "rofi --combi-modi window,drun,ssh,combi -show run -width 25 -lines 10 -columns 1 -font 'DejavuSansMono 11' -bw 1 -location 0 -disable-history -sidebar-mode:false -hide-scrollbar -color-window '#393e46, #ffd369, #ffd369' -color-normal '#393e46, #ffd369, #454b54, #ffd369, #393e46'"
+
+# bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
+
+
 # CHANGE FOCUS:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -100,8 +112,8 @@ bindsym $mod+Shift+r restart
 
 ### WORKSPACES:
 # DEFINE WORKSPACES:
-set $ws1 "1"
-set $ws2 "2"
+set $ws1 "1: CLI"
+set $ws2 "2: WWW"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
@@ -133,6 +145,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# ASSIGN APP TO WINDOW ACCORDING TO CLASS: $(xprop) - use 2nd variable of WM_CLASS
+assign [class="Firefox-esr"] $ws2
 
 ### i3 BAR + i3 BLOCKS:
 # COLOR VARIABLES:
@@ -159,14 +173,16 @@ bar {
         }
 }
 
+# EXECUTE urxvt terminal as daemon:
+exec --no-startup-id urxvtd --quiet --opendisplay --fork
 
 ### WALLPAPER:
 # WALLPAPER:
-#exec feh --bg-scale <PATH/TO/IMAGE.png>
+exec --no-startup-id feh --bg-scale ~/.config/i3/wallpaper.png
 # RENDER WALLPAPER NICELY (i3-gaps):
-#exec --no-startup-id exec bash ${HOME}/.fehbg
+exec --no-startup-id bash ${HOME}/.fehbg
 # LOCK SCREEN:
-#bindsym $mod+l exec i3lock -i <PATH/TO/IMAGE.png> -efu
+bindsym $mod+l exec i3lock -i ~/.config/i3/lockscreen.png -efu
 
 
 ### OTHER FEATURES:
@@ -175,6 +191,22 @@ exec xrdb ~/.Xresources
 # NUMLOCK ON START OF i3:
 exec numlockx on
 # PRINTSCREEN:
-bindsym Print exec ~/.config/i3/scripts/i3_prtsc.sh
+bindsym Print exec --no-startup-id ~/.config/i3/scripts/i3_prtsc.sh
 # KEYBOARD SWITCHING ('man xkeyboard-config'; 'localectl list-x11-keymap-variants [sk]'):
 exec --no-startup-id setxkbmap -model pc105 -layout "us,sk" -variant ",qwerty" -option 'grp:shifts_toggle' 
+
+### Fn KEY SHORTCUTS:
+# BACKLIGHT CONTROL:
+#exec xbacklight -set 50
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec ~/.config/i3/scripts/i3_brightness_decrease.sh
+# AUDIO CONTROL:
+exec amixer set Master 50%
+exec amixer set Master mute
+bindsym XF86AudioMute exec amixer set Master toggle
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+# MIC CONTROL:
+exec amixer set Capture 50%
+exec amixer set Capture nocap
+bindsym XF86AudioMicMute exec amixer set Capture toggle
