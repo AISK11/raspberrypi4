@@ -11,8 +11,13 @@ set shiftwidth=4
 set expandtab
 
 " Number lines:
-set number
+"set number
 
 " Colors:
 syntax on
-colorscheme murphy
+"colorscheme murphy
+
+" Filename edited:
+set laststatus=2
+" Statusline:
+set statusline=%F\ %p%%\ [%l:%c]\ %M\ %R
