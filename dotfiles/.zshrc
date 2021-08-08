@@ -37,6 +37,9 @@ export SAVEHIST=${HISTSIZE}
 # PATH variable:
 export PATH=${PATH}:/sbin:/usr/sbin
 
+# Fix error with rofi ("Failed to set locale"):
+export LC_ALL="C"
+
 # Aliases:
 alias ls='ls --color=always'
 alias ip='ip -c'
