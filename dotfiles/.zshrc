@@ -4,9 +4,6 @@
 # Packages installed:
 # sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
 
-# Packages installed for X:
-# sudo apt --no-install-recommends install xserver-xorg xserver-xorg-video-fbdev xinit x11-xserver-utils
-
 # Change default shell:
 # user$ chsh -s /bin/zsh
 # root# usermod -s /bin/zsh <USER>
@@ -17,10 +14,9 @@ clear
 
 autoload -U colors && colors
 # command prompt (https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Prompt-Expansion):
-#export PS1="%B%F{#d00000}%n%f%F{#faa307}@%f%F{#d00000}%m%f %F{#faa307}%~%f %F{#d00000}>%f%b %F{#ffffff}"
-export PS1=$'\n'"20%D %* %y"$'\n'"%n@%M %~ > "
 # Foreground: %F{XXX} ; bacKground: %K{XXX} (https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal/821163):
-#export PS1=$'\n'"%F{9}20%D %* %F{11}%y"$'\n'"%F{9}%n%F{11}@%F{9}%M %F{10}%~ %F{9}> %{$reset_color%}"
+#export PS1="%n@%m %~ %# "
+export PS1="%{$fg[red]%}%n%{$fg[yellow]%}@%{$fg[red]%}%m %{$fg[yellow]%}%~ %{$fg[red]%}%# %{$reset_color%}"
 
 # Autocompletion:
 autoload -U compinit
@@ -35,12 +31,16 @@ export KEYTIMEOUT=1
 
 # History settings:
 export HISTSIZE=2000
-export HISTFILE="${HOME}/.history"
+export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=${HISTSIZE}
+
+# PATH variable:
+export PATH=${PATH}:/sbin:/usr/sbin
 
 # Aliases:
 alias ls='ls --color=always'
 alias ip='ip -c'
+alias grep='grep --color'
 
 # start X:
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; 
