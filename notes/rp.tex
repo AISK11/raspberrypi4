@@ -1,0 +1,1458 @@
+\documentclass[10pt, a4paper, onecolumn, openany]{book} % openany make chapter start whenever, DELETE in OFFICIAL
+
+% PACKAGES:
+% Font Encoding
+\usepackage[utf8]{inputenc}     % Use UTF-8
+\usepackage[T1]{fontenc}        % T1 font encoding (latin characters)
+% Header
+\usepackage{fancyhdr}           % fancy page header options
+\usepackage{titlesec}           % used to have \thechapter in same line as \chaptertitlename
+% MISC
+\usepackage{hyperref}           % \url{}
+\usepackage{xurl}
+\usepackage{graphicx}           % images
+\usepackage{xcolor}            % colors
+\usepackage{fancyvrb}          % colors in Verbatin, header: \begin{Verbatim}[commandchars=\\\{\}]
+
+% DECORATIVE LINES + CHAPTER IN SAME LINE:
+\renewcommand{\headrulewidth}{2pt}  % Top decorative line
+\renewcommand{\footrulewidth}{2pt}  % Bottom decorative line
+\pagestyle{fancy}                   % better header for normal pages, not only chapter ones
+\fancyhf{}                          % clear header and adjust as wanted:
+    \chead{\leftmark}               % header
+    \cfoot{Page \thepage}           % footer
+\fancypagestyle{plain}{
+\fancyhf{} 
+    \chead{\leftmark}       % header
+    \cfoot{Page \thepage}   % footer
+}
+\renewcommand{\chaptername}{}       % change word chapter to {}
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter.}{1em}{} % Chapter in same line as chapter name
+
+% SIZES OF SECTIONS:
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+
+% DISABLE huge space after (paragraph indent) section name before text starts:
+\setlength{\parindent}{0pt}
+
+% COLOR EXAMPLES:
+% \definecolor{MyColor}{RGB}{219, 48, 122}  % define
+% \textcolor{MyColor}{Some random text}     % usage in document
+\definecolor{root}{RGB}{222, 0, 0}
+\definecolor{user}{RGB}{0, 150, 00}
+\definecolor{dir}{RGB}{0, 100, 200}
+\definecolor{file}{RGB}{77, 187, 101}
+\definecolor{block}{RGB}{255, 80, 0}
+\definecolor{command}{RGB}{41, 182, 0}
+\definecolor{comment}{RGB}{0, 182, 182}
+
+% COLORS FOR CODE in document:
+%\begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{js}
+%\end{minted}
+
+% IMAGES:
+\graphicspath{./images/} % define directory
+% \includegraphics[scale=1.5]{./images/random_image.png} % usage in document
+
+% TABLE:
+% \begin{center}
+%    \begin{small}
+%    \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+%    \hline
+%    + & - & * & / & \% & ** & () \\
+%    \hline
+%    1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+%    \hline
+%    \end{tabular}
+%    \end{small}
+%\end{center}
+
+
+%\titlespacing*{\section}{0pt}{1.5cm}{0.2cm}
+%\titlespacing*{\subsection}{0pt}{0.2cm}{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Raspberry Pi 4}}
+\author{AISK}
+\date{June, 2021}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%\clearpage % official blank page
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hardware %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Hardware}
+\section{Hardware requirements}
+\subsection{Raspberry Pi 4 Model B (2,4 or 8GB)}
+\begin{center}
+    \includegraphics[scale=0.3]{./images/raspberry_pi_4_model_b.png}
+\end{center}
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Model} & \textbf{Price (EUR)} \\
+    \hline
+    2 GB & \ 53.90 \\
+    \hline
+    4 GB & \ 77.90 \\
+    \hline
+    8 GB & 104.90 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+
+\subsection{Raspberry Pi 15.3W USB-C Power Supply}
+\begin{center}
+    \includegraphics[scale=0.1]{./images/raspberry_pi_4_model_b_psu.png}
+\end{center}    
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    Input & AC 100-240V 50/60Hz  \\
+    \hline
+    Output & \ DC 5.1V 3A \\
+    \hline
+    Maximum Output Power & 15.3W \\
+    \hline
+    Color & Black/White \\
+    \hline
+    Price (EUR) & 13.90 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+
+\subsection{microSD card (SanDisk micro SDHC 32 GB Extreme Pro A1 UHS-I (V30) + SD adapter)}
+\begin{center}
+    \includegraphics[scale=0.3]{./images/SanDisk_micro_SDHC_32_GB.png}
+\end{center}
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    Recommended Size & > 32 GB \\
+    \hline
+    Filesystem & \ VFAT (exFAT) \\
+    \hline
+    Diagnostic test & Passed \\
+    \hline
+    Price (EUR) & 14.90 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+
+\subsection{Cable - HDMI (M) to HDMI micro (M) (OEM RASPBERRY Pi HDMI 3m)}
+\begin{center}
+    \includegraphics[scale=0.2]{./images/oem_raspberry_pi_hdmi.png}
+\end{center}
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    Port 1 & HDMI (M) \\
+    \hline
+    Port 2 & \ HDMI micro) \\
+    \hline
+    Length & 3m \\
+    \hline
+    Price (EUR) & 7.00 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+
+\section{Optional Hardware}
+\subsection{RASPBERRY Pi 4 case}
+\begin{center}
+    \includegraphics[scale=0.2]{./images/raspberry_pi_4_case_black.png}
+\end{center}
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    Color & Black/White \\
+    \hline
+    Price (EUR) & 7.50 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+
+\subsection{Raspberry Pi 4 Case Fan}
+\begin{center}
+    \includegraphics[scale=0.2]{./images/raspberry_pi_4_case_fan.png}
+\end{center}
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    Price (EUR) & 5.30 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+
+\subsection{USB-C cable with circuit break for Raspberry Pi 4B, 27cm}
+\begin{center}
+    \includegraphics[scale=0.15]{./images/usb_c_cable_raspberry-pi_4b_27cm.png}
+\end{center}
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+    Price (EUR) & 7.42 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+
+\section{Other Documentation}
+\subsection{Hardware documentation}
+\url{https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711/rpi_DATA_2711_1p0_preliminary.pdf}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OS Installation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{OS Installation}
+\section{Download OS}
+\underline{\url{https://www.raspberrypi.org/software/operating-systems/}}\newline
+\underline{\url{https://downloads.raspberrypi.org/raspios_lite_arm64/images/}}
+\subsection{Check SHA256 checksum}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{sha256sum} <YYYY-MM-dd-raspios-buster-armhf.zip>
+\end{Verbatim}
+\section{Format SD card}
+\subsection{SD card partitioning}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{parted} \textcolor{block}{/dev/sdX}
+    \textcolor{user}{(parted)} mktable gpt
+    \textcolor{user}{(parted)} unit mib
+    \textcolor{user}{(parted)} mkpart primary 1 -1
+    \textcolor{user}{(parted)} q
+\end{Verbatim}
+
+\subsection{VFAT < 32GB (NOT NEEDED)}
+% if problems -> GPARTED -> msdos -> fat32
+\begin{Verbatim}[commandchars=\\\{\}]
+Check for partition:
+    \textcolor{user}{pi\$} \textcolor{command}{lsblk} -pf
+\textit{Umount FS at first in case is automounted!}
+
+Create VFAT filesystem:
+    \textcolor{root}{pi#} \textcolor{command}{mkfs} -t vfat <\textcolor{block}{/dev/sdXY}>
+\end{Verbatim}
+\subsection{exFAT > 32GB (NOT NEEDED)}
+\begin{Verbatim}[commandchars=\\\{\}]
+Format:
+    \textcolor{root}{pi#} \textcolor{command}{mkfs.exfat} <\textcolor{block}{/dev/sdXY}>
+    
+Check:
+    \textcolor{root}{pi#} \textcolor{command}{fsck.exfat} <\textcolor{block}{/dev/sdXY}>
+\end{Verbatim}
+
+\section{Unzip and Flash OS}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{unzip} <YYYY-MM-dd-raspios-buster-armhf.zip>
+
+    \textcolor{root}{pi#} \textcolor{command}{dd} if=</PATH/TOYYYY-MM-dd-raspios-buster-armhf.img>    
+    of=<\textcolor{block}{/dev/sdX}> bs=1M conv=fsync [status=progress]
+    
+Note: wait a few minutes till FS loads first, if necessary, restart monitor.
+\end{Verbatim}
+
+\section{WiP - First boot monitorless access:}
+\begin{Verbatim}[commandchars=\\\{\}]
+mount /dev/sdX1 /mnt/<dir>/
+
+\textcolor{dir}{/mnt/<dir>/}\textcolor{file}{wpa_supplicant.conf}:
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=<2 LETTER ISO CODE>
+
+network=\{
+    ssid="<ESSID>"
+    scan_ssid=1 \textcolor{comment}{# Find hidden network}
+    key_mgmt=WPA-PSK WPA-EAP
+    \textcolor{comment}{#psk="<PLAINTEXT-PASSWD>"}
+    psk=<32byte-HEX-NUMBER>
+    priority=1 \textcolor{comment}{# To which WiFi connect first}
+\}
+
+umount /dev/sdX1
+\end{Verbatim}
+
+\section{Finishing}
+\begin{Verbatim}[commandchars=\\\{\}]
+Remove SD card and place it back to Raspberry Pi as in picture:
+\end{Verbatim}
+\begin{center}
+    \includegraphics[scale=0.2]{./images/sd_card_to_pi.png}
+\end{center}
+\begin{Verbatim}[commandchars=\\\{\}]
+Connect HDMI, keyboard and mouse.
+Plug in USB-C power cable.
+\end{Verbatim}
+
+\subsection{Default Credentials}
+\begin{Verbatim}[commandchars=\\\{\}]
+Username: \textbf{pi}
+Password: \textbf{raspberry}
+\end{Verbatim}
+
+\subsection{Update}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} update
+    \textcolor{root}{pi#} \textcolor{command}{apt} <upgrade|full-upgrade>
+\end{Verbatim}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Firs Start %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{First Start}
+\section{Display}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Remove black borders (\textcolor{file}{/boot/config.txt}):
+disable_overscan=1
+\end{Verbatim}
+
+\section{GPU RAM}
+\begin{Verbatim}[commandchars=\\\{\}]
+(\textcolor{file}{/boot/config.txt}):
+gpu_mem=512
+\end{Verbatim}
+\section{Rfkill}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Block BT, unblock WiFi:
+    \textcolor{user}{pi\$} \textcolor{command}{rfkill} list
+    0: phy0: Wireless LAN
+        Soft blocked: yes
+        Hard blocked: no
+    1: hci0: Bluetooth
+        Soft blocked: no
+        Hard blocked: no
+    
+    \textcolor{user}{pi\$} \textcolor{command}{rfkill} block bluetooth
+    \textcolor{user}{pi\$} \textcolor{command}{rfkill} unblock wlan
+
+    \textcolor{user}{pi\$} \textcolor{command}{rfkill} list
+    0: phy0: Wireless LAN
+        Soft blocked: no
+        Hard blocked: no
+    1: hci0: Bluetooth
+        Soft blocked: yes
+        Hard blocked: no
+\end{Verbatim}
+
+\section{Password}
+\begin{Verbatim}[commandchars=\\\{\}]
+- User password change:
+    \textcolor{user}{pi\$} \textcolor{command}{passwd}
+   
+- Root password set/change: 
+    \textcolor{root}{pi#} \textcolor{command}{passwd} root
+\end{Verbatim}
+
+\section{Timezone}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Show current timezone:
+    \textcolor{user}{pi\$} \textcolor{command}{timedatectl} [-a]
+
+- List available timezones:
+    \textcolor{user}{pi\$} \textcolor{command}{timedatectl} list-timezones
+    
+- Change timezone:
+    \textcolor{root}{pi#} \textcolor{command}{timedatectl} set-timezone <UTC|Europe/Copenhagen>
+\end{Verbatim}
+
+\section{Locale}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Show current locales:
+    \textcolor{user}{pi\$} \textcolor{command}{locale}
+
+- Change locale (\textcolor{file}{/etc/default/locale}):
+    LANG=en_US.UTF-8
+    \textcolor{comment}{# First day in a week MON, not SUN:}
+    LC_TIME="en_GB.UTF-8"
+    \textcolor{comment}{# Default paper size:}
+    LC_PAPER="en_GB.UTF-8"
+    LC_MEASUREMENT="en_GB.UTF-8"
+\end{Verbatim}
+
+\section{Keyboard Layout}
+\begin{Verbatim}[commandchars=\\\{\}]
+Available keyboards \textcolor{dir}{/usr/share/keymaps/i386/}
+
+- Set keyboard (\textcolor{file}{/etc/default/keyboard}):
+XKBMODEL="pc105"
+XKBLAYOUT="us"
+XKBVARIANT=""
+XKBOPTIONS=""
+BACKSPACE="guess"
+\end{Verbatim}
+
+\section{Hostname}
+\begin{Verbatim}[commandchars=\\\{\}]
+1. Display hostname:
+    \textcolor{user}{pi\$} \textcolor{command}{hostname}
+    
+2. Change hostname:
+File (\textcolor{file}{/etc/hostname}):
+<HOSTNAME>
+
+File (\textcolor{file}{/etc/hosts}):
+...
+127.0.1.1   <HOSTNAME>
+\end{Verbatim}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Network %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Network}
+\section{Scheme}
+\begin{Verbatim}[commandchars=\\\{\}]
+                          +--------+                               +---------+
+WAN oooo dhcpcd:68 (DHCP) |aidkrp01| (192.168.0.1) dnsmasq:67 ---- |L2 switch|
+                          +--------+                               +---------+
+\end{Verbatim}
+
+\section{Disable unnecessary}
+\subsection{Uninstall Bluetooth}
+\begin{Verbatim}[commandchars=\\\{\}]
+List packages:
+    \textcolor{user}{pi} \textcolor{command}{dpkg} -l | \textcolor{command}{grep} -i bluetooth
+
+Purge packages:
+    \textcolor{root}{pi#} \textcolor{command}{dpkg} --purge <bluez bluez-firmware pi-bluetooth>
+\end{Verbatim}
+\subsection{Disable IPv6}
+\subsubsection{Disable in system}
+\begin{Verbatim}[commandchars=\\\{\}]
+File: (\textcolor{file}{/etc/sysctl.conf}):
+net.ipv6.conf.all.disable_ipv6 = 1
+
+Temporary file: \textcolor{file}{/proc/sys/net/ipv6/conf/all/disable_ipv6}
+\end{Verbatim}
+\subsubsection{Disable in FW}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Install persistent iptables:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install iptables-persistent
+
+- DROP all IPv6 traffic:
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -F
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -P INPUT DROP
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -P FORWARD DROP
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -P OUTPUT DROP 
+
+- Update rules:
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables-save} > \textcolor{file}{/etc/iptables/rules.v6}
+\end{Verbatim}
+
+
+\subsection{Disable Avahi daemon}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} disable avahi-daemon.socket
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} disable avahi-daemon.service
+\end{Verbatim}
+
+\section{WLAN}
+\subsection{Connect automatically to AP}
+\begin{Verbatim}[commandchars=\\\{\}]
+File: (\textcolor{file}{/etc/network/interfaces}):
+\textcolor{comment}{# bring interface UP when is detected by kernel:}
+#auto wlan0 # start on boot time
+allow-hotplug wlan0
+\textcolor{comment}{# use DHCP:}
+iface wlan0 inet dhcp
+\textcolor{comment}{# use wpa_supplicant conf file:}
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+- Disable unnecessary service (error caused by "wpa-conf ..."):
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} disable networking.service
+\end{Verbatim}
+\subsection{WiFi Settings}
+\begin{Verbatim}[commandchars=\\\{\}]
+File: (\textcolor{file}{/etc/wpa_supplicant/wpa_supplicant.conf}) (0600):
+\textcolor{comment}{# Basic settings and language for zones:}
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=<2 LETTER ISO CODE>
+
+\textcolor{comment}{# Password protected:}
+network=\{
+    ssid="<ESSID>"
+    scan_ssid=1 \textcolor{comment}{# Find hidden network}
+    key_mgmt=WPA-PSK WPA-EAP
+    \textcolor{comment}{#psk="<PLAINTEXT-PASSWD>"}
+    psk=<32byte-HEX-NUMBER>
+    priority=1 \textcolor{comment}{# To which WiFi connect first}
+\}
+
+\textcolor{comment}{# Unprotected:}
+network=\{
+    ssid="<ESSID>"
+    scan_ssid=1 \textcolor{comment}{# Find hidden network}
+    key_mgmt=NONE
+    priority=2 \textcolor{comment}{# To which WiFi connect first}
+\}
+\end{Verbatim}
+
+\subsection{DHCP client}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Install dhcpcd:
+    \textcolor{root}{root#} \textcolor{command}{apt} install dhcpcd5
+
+- Purge old DHCP:
+    \textcolor{root}{root#} \textcolor{command}{dpkg} --purge <isc-dhcp-client isc-dhcp-common>
+    
+- Configure DHCP:
+File: (\textcolor{file}{/etc/dhcpcd.conf}):
+\textcolor{comment}{# Inform DHCP server of our hostname for DDNS.}
+###hostname
+\textcolor{comment}{# Use the hardware address of the interface for the Client ID.}
+###clientid
+\textcolor{comment}{# Persist interface configuration when dhcpcd exits.}
+###persistent
+\textcolor{comment}{# A list of options to request from the DHCP server.}
+###option domain_name_servers, domain_name, domain_search, host_name
+\end{Verbatim}
+\subsection{DNS}
+\subsubsection{Configure}
+\begin{Verbatim}[commandchars=\\\{\}]
+File: (\textcolor{file}{/etc/resolv.conf}) (0644):
+\textcolor{comment}{# Uncensored DNS - Denmark - Unicast}
+nameserver 89.233.43.71
+#nameserver 1.1.1.1
+#nameserver 1.0.0.1
+\textcolor{comment}{# CZ.NIC}
+nameserver 193.17.47.1
+nameserver 185.43.135.1
+\end{Verbatim}
+
+\subsection{Change MAC address on startup}
+\begin{Verbatim}[commandchars=\\\{\}]
+Change MAC address (XN:XX:XX:XX:XX:XX), N = 0,2,4,6,8,A,C,E:
+(\underline{\url{https://macvendors.com/}})
+
+File (\textcolor{file}{/etc/systemd/system/<changemac>@.service}):
+[Unit]
+Description=changes mac for \%I
+Wants=network.target
+Before=network.target
+BindsTo=sys-subsystem-net-devices-\%i.device
+After=sys-subsystem-net-devices-\%i.device
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/ip l set address a8:96:8a:6e:b2:58 \%I
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+- Enable service on startup:
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} enable changemac@<wlan0>.service
+\end{Verbatim}
+
+\section{Ethernet}
+\subsection{Interface config}
+\begin{Verbatim}[commandchars=\\\{\}]
+File: (\textcolor{file}{/etc/network/interfaces}):
+\textcolor{comment}{# bring interface UP when is detected by kernel:}
+#auto eth0 # start on boot time
+allow-hotplug eth0
+\textcolor{comment}{# use static IP:}
+iface eth0 inet static
+    address <192.168.0.1>
+    netmask <255.255.255.0>
+    #gateway <192.168.0.1>
+    #dns-nameservers <1.1.1.1>
+    #dns-nameservers <1.0.0.1>
+\end{Verbatim}
+
+\subsection{DHCP server}
+\subsubsection{Installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} install dnsmasq
+    
+- Example config file:
+(\underline{\url{https://github.com/imp/dnsmasq/blob/master/dnsmasq.conf.example}})
+\end{Verbatim}
+
+\subsubsection{Configuration}
+\begin{Verbatim}[commandchars=\\\{\}]
+File (\textcolor{file}{/etc/dnsmasq.conf}):
+\textcolor{comment}{# DNS SETTINGS:}
+\textcolor{comment}{# DNS port (default 53), 0 - disable DNS:}
+port=0
+\textcolor{comment}{# Which DNS server should be used for IP resolving:}
+#server=1.1.1.1
+#server=1.0.0.1
+\textcolor{comment}{# DHCP SETTINGS:}
+\textcolor{comment}{# Specify interface:}
+#interface=<wlan0>
+\textcolor{comment}{# DHCP range,lease-time:}
+dhcp-range=eth0,192.168.0.10,192.168.0.254,255.255.255.0,12h
+#dhcp-range=[eth0],192.168.0.10,192.168.0.254,[255.255.255.0],[12h]
+\textcolor{comment}{Set the limit on DHCP leases, the default is 150}
+#dhcp-lease-max=150
+\textcolor{comment}{# Static IP address (MAC,IPv4):}
+#dhcp-host=XX:XX:XX:XX:XX:XX,10.0.1.2
+\textcolor{comment}{# Blacklist MAC:}
+#dhcp-host=XX:XX:XX:XX:XX:XX,ignore
+\textcolor{comment}{# Specify NTP server:}
+#dhcp-option=option:ntp-server,X.X.X.X[,X.X.X.X]
+\textcolor{comment}{# Change default TTL to 50:}
+#dhcp-option=23,50
+\end{Verbatim}
+
+\subsubsection{Enable DHCP server}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} enable dnsmasq.service
+\end{Verbatim}
+
+\subsection{NAT}
+\subsubsection{IPv4 forwarding}
+\begin{Verbatim}[commandchars=\\\{\}]
+File: (\textcolor{file}{/etc/sysctl.conf}):
+net.ipv4.conf.eth0.forwarding=1
+net.ipv4.conf.wlan0.forwarding=1
+
+Temporary file: \textcolor{file}{/proc/sys/net/ipv4/conf/<eth0|wlan0>/forwarding}
+\end{Verbatim}
+
+\subsubsection{NAT iptables rules}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Install persistent iptables:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install iptables-persistent
+
+- Set NAT forwarding:
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -F
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -t nat -A POSTROUTING -o <wlan0> -j MASQUERADE
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED
+    -j ACCEPT
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -A FORWARD -i <eth0> -o <wlan0> -j ACCEPT
+
+- Update rules:
+    \textcolor{root}{pi#} \textcolor{command}{iptables-save} > \textcolor{file}{/etc/iptables/rules.v4}
+\end{Verbatim}
+
+\subsubsection{WiP - ToDo}
+\begin{Verbatim}[commandchars=\\\{\}]
+WHAT IS NOT WORKING:
+- not getting any DNS server from DHCP server
+- do not respond to icmp
+- proxy blocking via /etc/hosts not working
+- bridge with hidden AP
+
+FW + ips for wlan0
+ssh setup 
+vnc setup
+logging
+honeypot
+\end{Verbatim}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shell and Texteditor %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Shell and Texteditor}
+\section{vim}
+\subsection{Installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} install vim
+\end{Verbatim}
+\subsection{Configure}
+\begin{Verbatim}[commandchars=\\\{\}]
+Config files:
+(\textcolor{file}{/etc/vim/vimrc}) - global
+(\textcolor{file}{~/.vimrc}) - per user
+\underline{\url{https://github.com/AISK11/raspberrypi4/blob/main/dotfiles/.vimrc}}
+\end{Verbatim}
+\subsection{Set as default}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{update-alternatives} --config editor
+\end{Verbatim}
+\subsection{Tricks}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Add '#' to start of file:
+A)  :\%s/^/#/g
+B)  \textcolor{root}{pi#} \textcolor{command}{vim} -c ":\%s/^/#/g" -c ":wq" <FILE>
+\end{Verbatim}
+
+\section{zsh}
+\subsection{Install and setup}
+\begin{Verbatim}[commandchars=\\\{\}]
+Install:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install zsh zsh-autosuggestions zsh-syntax-highlighting
+    
+Set up zsh as default \$\{SHELL\}:
+a)  \textcolor{user}{pi\$} \textcolor{command}{chsh} -s \textcolor{file}{/bin/zsh}
+b)  \textcolor{root}{pi#} \textcolor{command}{usermod} -s \textcolor{file}{/bin/zsh} <USER>
+\end{Verbatim}
+\subsection{Configure}
+\begin{Verbatim}[commandchars=\\\{\}]
+File (\textcolor{file}{~/.zshrc}) (0644):
+\underline{\url{https://github.com/AISK11/raspberrypi4/blob/main/dotfiles/.zshrc}}
+\end{Verbatim}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% X + i3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{X + i3}
+\section{X}
+\subsection{Installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} --no-install-recommends install xserver-xorg
+    xserver-xorg-video-fbdev xinit x11-xserver-utils
+\end{Verbatim}
+\subsection{Start X on tty1}
+\begin{Verbatim}[commandchars=\\\{\}]
+File (\textcolor{file}{~/.bash_profile}||\textcolor{file}{~/.zshrc}) (0644):
+\textcolor{comment}{# if (length of \$DISPLAY is 0 && \$(tty) = /dev/tty1) startx}
+if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty1 ]]; 
+then
+    source /etc/profile
+    startx
+fi
+\end{Verbatim}
+
+
+\section{i3}
+\subsection{i3 Installation (do not install with i3-gaps)}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} install i3 --no-install-recommends
+    \textcolor{root}{pi#} \textcolor{command}{apt} install i3-wm 
+\end{Verbatim}
+\subsection{i3-gaps from source}
+\begin{Verbatim}[commandchars=\\\{\}]
+URL: (\underline{https://github.com/Airblader/i3/wiki/Building-from-source})
+
+- Clone i3-gaps:
+    \textcolor{user}{pi\$} \textcolor{command}{cd} \textcolor{dir}{/etc/}
+    \textcolor{root}{pi#} \textcolor{command}{git} clone https://www.github.com/Airblader/i3 i3-gaps
+    \textcolor{user}{pi\$} \textcolor{command}{cd} \textcolor{dir}{./i3-gaps/}
+
+
+- Install dependencies
+    \textcolor{root}{pi#} \textcolor{command}{apt} install meson
+    \textcolor{root}{pi#} \textcolor{command}{apt} install dh-autoreconf libxcb-keysyms1-dev 
+libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev
+libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev 
+libxcb-xinerama0-dev libxkbcommon-x11-dev libpango1.0-dev
+libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 
+libxcb-xrm-dev libxcb-shape0 libxcb-shape0-dev
+
+- Compile:
+    \textcolor{root}{pi#} \textcolor{command}{mkdir} -p \textcolor{dir}{build} && cd \textcolor{dir}{build}
+    \textcolor{root}{pi#} \textcolor{command}{meson} --prefix \textcolor{file}{/usr/local}
+    \textcolor{root}{pi#} \textcolor{command}{ninja}
+    \textcolor{root}{pi#} \textcolor{command}{ninja} install
+\end{Verbatim}
+
+\subsection{Run i3 after Xorg starts}
+\begin{Verbatim}[commandchars=\\\{\}]
+File (\textcolor{file}{~/.xinitrc}) (0644):
+\underline{\url{https://github.com/AISK11/raspberrypi4/blob/main/dotfiles/.xinitrc}}
+\end{Verbatim}
+
+\subsection{i3config}
+\subsubsection{Installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} install i3blocks i3lock numlockx rofi feh scrot
+    compton
+\end{Verbatim}
+\subsubsection{Configuration}
+\begin{Verbatim}[commandchars=\\\{\}]   
+File (\textcolor{file}{~/.config/i3/config}) (0644):
+\underline{\url{https://github.com/AISK11/raspberrypi4/blob/main/dotfiles/.config/i3/config}}
+\end{Verbatim}
+
+\section{urxvt}
+\subsection{Installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} install rxvt-unicode-256color
+\end{Verbatim}
+
+\subsection{Configuration}
+\begin{Verbatim}[commandchars=\\\{\}]
+File (\textcolor{file}{~/.Xresources}) (0644):
+\underline{\url{https://github.com/AISK11/raspberrypi4/blob/main/dotfiles/.Xresources}}
+
+- Refresh X database for file and restart urxvt:
+    \textcolor{root}{pi#} \textcolor{command}{xrdb} \textcolor{file}{~/.Xresources}
+
+- Execute read in X database every time i3 is started:
+File (\textcolor{file}{~/.config/i3/config}) (0644):
+exec xrdb ~/.Xresources    
+\end{Verbatim}
+
+\subsection{Set as default emulator}
+\begin{Verbatim}[commandchars=\\\{\}]    
+    \textcolor{root}{pi#} \textcolor{command}{update-alternatives} --config x-terminal-emulator
+\end{Verbatim}
+
+\section{i3blocks}
+\begin{Verbatim}[commandchars=\\\{\}]
+i3blocks visual:
+File (\textcolor{file}{/etc/i3blocks.conf}) (0644):
+\underline{\url{https://github.com/AISK11/raspberrypi4/blob/main/config_files/i3blocks.conf}}
+
+Required scripts:
+Dir (\textcolor{dir}{~/.config/i3/scripts/}):
+\underline{\url{https://github.com/AISK11/raspberrypi4/tree/main/dotfiles/.config/i3/scripts}}
+\end{Verbatim}
+
+\section{Fonts}
+\subsection{View Font}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Install:
+    \textcolor{root}{pi} \textcolor{command}{apt} imagemagick
+    
+- Use:
+    \textcolor{user}{pi\$} \textcolor{command}{fc-list} 
+    \textcolor{user}{pi\$} \textcolor{command}{display} </PATH/TO/font.ttf>
+\end{Verbatim}
+\subsection{font-awesome}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{mkdir} \textcolor{dir}{~/.fonts/}
+    \textcolor{user}{pi\$} \textcolor{command}{git clone} https://github.com/FortAwesome/Font-Awesome
+    \textcolor{user}{pi\$} \textcolor{command}{cd} \textcolor{dir}{Font-Awesome}
+    \textcolor{user}{pi\$} \textcolor{command}{find} \textcolor{dir}{.} -regex ".*\char92.ttf\$" -o -regex ".*\char92.otf\$" -exec cp \{\} \textcolor{dir}{~/.fonts/} \char92;
+    \textcolor{user}{pi\$} \textcolor{command}{rm} -rf \textcolor{dir}{~/Font-Awesome/}
+\end{Verbatim}
+
+\section{lxappearance}
+\subsection{lxappearance}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Install:
+    \textcolor{root}{pi} \textcolor{command}{apt} install lxappearance
+    
+- Usage;
+    \textcolor{user}{pi\$} \textcolor{command}{lxappearance}
+\end{Verbatim}
+\subsection{GTK Theme + Icons}
+\begin{Verbatim}[commandchars=\\\{\}]
+Directories:
+    \textcolor{dir}{.themes}
+    \textcolor{dir}{.icons}
+\end{Verbatim}
+\subsection{Cursor}
+\begin{Verbatim}[commandchars=\\\{\}]
+URL: \underline{https://github.com/varlesh/volantes-cursors}
+
+- Install dependencies:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install git make inkscape xcursorgen
+
+- Install cursor:
+    \textcolor{user}{pi\$} \textcolor{command}{git} clone https://github.com/varlesh/volantes-cursors
+    \textcolor{user}{pi\$} \textcolor{command}{cd} \textcolor{dir}{volantes-cursors}
+    \textcolor{user}{pi\$} \textcolor{command}{make} build
+    \textcolor{root}{pi#} \textcolor{command}{make} install
+\end{Verbatim}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ? %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Chia blockchain}
+\section{Documentation}
+\begin{Verbatim}[commandchars=\\\{\}]
+Make sure to use 64bit version (Raspbian 64).
+\end{Verbatim}
+\underline{\url{https://github.com/Chia-Network/chia-blockchain/wiki/Raspberry-Pi}}
+
+\section{Increase SWAP to 1GB}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Turn off swap:
+    \textcolor{root}{pi#} \textcolor{command}{dphys-swapfile} swapoff
+    
+- Modify swap file (\textcolor{file}{/etc/dphys-swapfile}):
+\textcolor{comment}{# at least 1024 is needed:}
+CONF_SWAPSIZE=2048
+
+- Delete original swap file and recreate new swap file:
+    \textcolor{root}{pi#} \textcolor{command}{dphys-swapfile} setup
+     
+- Turn on swap:
+    \textcolor{root}{pi#} \textcolor{command}{dphys-swapfile} swapon
+\end{Verbatim}
+
+
+\section{Setup}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Download dependencies:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install -y build-essential python3-dev
+    
+- Check if 64bit adchitecture of python is installed:
+    \textcolor{user}{pi#} \textcolor{command}{python3} -c 'import platform; print(platform.architecture))'
+OUTPUT: ('64bit', 'ELF')
+\end{Verbatim}
+
+\section{Install chia-blockchain}
+\subsection{CLI installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi#} \textcolor{command}{git} clone https://github.com/Chia-Network/chia-blockchain.git
+    -b latest
+    \textcolor{user}{pi#} \textcolor{command}{cd} \textcolor{dir}{chia-blockchain/}
+    \textcolor{user}{pi#} \textcolor{command}{sh} \textcolor{file}{install.sh}
+    \textcolor{user}{pi#} \textcolor{dir}{.} \textcolor{file}{./activate}
+    \textcolor{user}{(venv) pi#} \textcolor{command}{chia} init
+\end{Verbatim}
+\subsection{Generate/Import keys}
+\begin{Verbatim}[commandchars=\\\{\}]
+A) Generate:
+    \textcolor{user}{(venv) pi#} \textcolor{command}{chia} keys generate
+B) Import:
+    \textcolor{user}{(venv) pi#} \textcolor{command}{chia} keys add
+\end{Verbatim}
+\subsection{GUI installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{(venv) pi#} \textcolor{command}{sh} install-gui.sh
+    \textcolor{user}{(venv) pi#} \textcolor{command}{cd} \textcolor{dir}{chia-blockchain-gui/}
+    
+- Fix error with not found shared object "libnss3.so":
+    \textcolor{user}{pi#} \textcolor{command}{apt} \textcolor{command}{install} libnss3 libnss3-dev
+    
+- Fix error with "OSError; [Errno 99] error while attempting to bind 
+on address ('::1', 55400, 0, 0): cannot assign requested address. 
+closing code: 1":
+(\textcolor{file}{~/chia-blockchain/chia/util/initial-config.yaml}):
+#self_hostname: &self_hostname "localhost"
+self_hostname: &self_hostname "127.0.0.1"
+(\textcolor{file}{/etc/hosts}):
+#::1    localhost ip6-localhost ip6-loopback
+
+- Start GUI:    
+    \textcolor{user}{(venv) pi#} \textcolor{command}{npm} run electron &
+\end{Verbatim}
+
+\section{Harddrives}
+\subsection{Mount HDDs}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Create directories:
+    \textcolor{root}{pi#} \textcolor{command}{mkdir} -p \textcolor{dir}{/mnt/chia/hdd01}
+    \textcolor{root}{pi#} \textcolor{command}{mkdir} -p \textcolor{dir}{/mnt/chia/hdd02}
+
+- Mount drives:
+    \textcolor{root}{pi#} \textcolor{command}{mount} <\textcolor{block}{/dev/sda1}> \textcolor{dir}{/mnt/chia/hdd01}
+    \textcolor{root}{pi#} \textcolor{command}{mount} <\textcolor{block}{/dev/sdb1}> \textcolor{dir}{/mnt/chia/hdd01}
+
+- Configure fstab:
+1. see UUIDs of block devices:
+    \textcolor{root}{pi#} \textcolor{command}{blkid}
+
+2. configure fstab:
+File (\textcolor{file}{/etc/fstab}) (0644):
+\textcolor{comment}{# <fs>          <mountpoint>        <type>  <opts>      <dump/pass>}
+\textcolor{comment}{# UUID of /dev/sdXY:}
+UUID="<UUID>"   /mnt/chia/hdd01     ext4    defaults,noatime    0 2
+UUID="<UUID>"   /mnt/chia/hdd02     ext4    defaults,noatime    0 2
+
+
+/etc/fstab ????
+
+crontab for harddrives
+
+crontab for auto update
+
+\end{Verbatim}
+
+
+
+
+
+\chapter{Packages and Services}
+\section{VRMS - Find non free software}
+\subsection{Installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} install vrms
+\end{Verbatim}
+\subsection{Run}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{vrms}
+\end{Verbatim}
+
+%\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+\section{List Packages And Processes}
+\subsection{Packages}
+\begin{Verbatim}[commandchars=\\\{\}]
+All packages:
+    \textcolor{user}{pi\$} \textcolor{command}{dpkg} -l
+    
+List files from package:
+    \textcolor{user}{pi\$} \textcolor{command}{dpkg} -L <PACKAGE>
+    
+Find package to whom file belongs:
+    \textcolor{user}{pi\$} \textcolor{command}{dpkg} -S <FILE>
+\end{Verbatim}
+
+\subsection{Processes}
+\begin{Verbatim}[commandchars=\\\{\}]
+- List all processes:
+    \textcolor{user}{pi\$} \textcolor{command}{ps} -eF
+    
+- List everything [or only services]:
+    \textcolor{user}{pi\$} \textcolor{command}{systemctl} --all [--type service]
+\end{Verbatim}
+
+
+
+\section{Disable unnecessary software}
+\subsection{Bluetooth}
+\subsubsection{Disable on boot}
+\begin{Verbatim}[commandchars=\\\{\}]
+File (\textcolor{file}{/boot/config.txt}) (0644):
+\textcolor{comment}{# Disable Bluetooth:}
+dtoverlay=disable-bt
+\end{Verbatim}
+\subsubsection{Purge Bluetooth}
+\begin{Verbatim}[commandchars=\\\{\}]
+List packages:
+    \textcolor{user}{pi\$} \textcolor{command}{dpkg} -l | \textcolor{command}{grep} -i bluetooth
+
+Purge packages:
+    \textcolor{root}{pi#} \textcolor{command}{dpkg} --purge <bluez bluez-firmware pi-bluetooth>
+\end{Verbatim}
+\subsection{CUPS}
+\subsubsection{Purge CUPS}
+\begin{Verbatim}[commandchars=\\\{\}]
+List packages:
+    \textcolor{user}{pi\$} \textcolor{command}{dpkg} -l | \textcolor{command}{grep} -i cups
+
+Purge packages:
+    \textcolor{root}{pi#} \textcolor{command}{dpkg} --purge <cups cups-browsed cups-browsed cups-client 
+    cups-common cups-core-drivers cups-daemon 
+    cups-filters cups-filters-core-drivers cups-ipp-utils 
+    cups-ppdc cups-server-common>
+\end{Verbatim}
+
+\subsection{Avahi}
+\subsubsection{Disable on boot}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} disable avahi-daemon.socket 
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} disable avahi-daemon.service
+\end{Verbatim}
+
+\subsection{Other}
+\begin{Verbatim}[commandchars=\\\{\}]
+alsa-utils:
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} disable alsa-utils 
+\end{Verbatim}
+
+\subsection{Uninstall unused packages}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{apt} autoremove 
+\end{Verbatim}
+
+
+
+
+\chapter{Security}\section{No MOTD}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{echo} "" > \textcolor{file}{/etc/issue}
+\end{Verbatim}
+
+\section{Fork Bomb}
+\subsection{Execution}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{:()\{ :|:& \};:}
+\end{Verbatim}
+\subsection{Mitigation}
+\begin{Verbatim}[commandchars=\\\{\}]
+For current session:
+    \textcolor{user}{pi\$#} \textcolor{command}{ulimit} -H -u 5000
+
+Permanently - file \textcolor{file}{/etc/security/limits.conf} (0644):
+<USER> hard nproc 5000
+\end{Verbatim}
+\subsection{Mitigation in real time}
+\begin{Verbatim}[commandchars=\\\{\}]
+- man 7 signal for process sigs
+    \textcolor{root}{pi#} \textcolor{command}{killall} -SIGSTOP -u <USER>
+    \textcolor{root}{pi#} \textcolor{command}{killall} -SIGKILL -u <USER>
+\end{Verbatim}
+
+\section{FW}
+\subsection{List rules}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{iptables}  -L -n -v
+\end{Verbatim}
+
+\subsection{Default INPUT Policy}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{iptables}  -P <\underline{INPUT}|OUTPUT> <\underline{ACCEPT}|DROP>
+\end{Verbatim}
+
+\subsection{Filter incoming traffic}
+\begin{center}
+    \begin{small}
+    \begin{tabular}{|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Function} & \textbf{Port Range} \\
+    \hline
+    well-known ports & 0 - 1023  \\
+    \hline
+    registered ports & 1024 - 49151 \\
+    \hline
+    private ports & 49152 - 65535 \\
+    \hline
+    \end{tabular}
+    \end{small}
+\end{center}
+\begin{Verbatim}[commandchars=\\\{\}]
+DROP - no response; REJECT - closed port.
+
+Drop ports from any subnet on TCP ports 0-21 and 23-1023:
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -A INPUT -s 0.0.0.0/0 -p tcp --match multiport
+    --dports 0:21,23:1023 -j DROP
+    
+- Log traffic (\textcolor{file}{/var/log/syslog}):    
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -N LOG_AND_DROP
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -A LOG_AND_DROP -j LOG --log-prefix "iptables denied: "
+    --log-level 7
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -A LOG_AND_DROP -j DROP    
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -A INPUT -s 0.0.0.0/0 -p tcp --match multiport
+    --dports 0:21,23:1023 -j LOG_AND_DROP
+\end{Verbatim}
+
+\subsection{Flush all settings}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{iptables} -F
+\end{Verbatim}
+
+\subsection{Block all IPv6 traffic}
+\begin{Verbatim}[commandchars=\\\{\}]
+List IPv6 traffic:
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -L -n -v   
+
+Drop all policies:
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -P INPUT DROP
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -P FORWARD DROP
+    \textcolor{root}{pi#} \textcolor{command}{ip6tables} -P OUTPUT DROP 
+\end{Verbatim}
+
+\subsection{Persistent iptables}
+\begin{Verbatim}[commandchars=\\\{\}]
+Installation:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install iptables-persistent
+
+Update rules:
+    \textcolor{root}{root#} \textcolor{command}{iptables-save} > \textcolor{file}{/etc/iptables/rules.v4}
+    \textcolor{root}{root#} \textcolor{command}{ip6tables-save} > \textcolor{file}{/etc/iptables/rules.v6}
+\end{Verbatim}
+
+\section{Proxy Filter}
+\begin{Verbatim}[commandchars=\\\{\}]
+- File: (\textcolor{file}{/etc/hosts}):
+0.0.0.0 www.malicious.com
+\end{Verbatim}
+
+\section{Logs}
+\subsection{Login}
+\begin{Verbatim}[commandchars=\\\{\}]
+- see last successfull logins (\textcolor{file}{/var/log/wtmp}):
+    \textcolor{user}{pi\$} \textcolor{command}{last} [-aiF]
+
+- see last unsuccessfull logins (\textcolor{file}{/var/log/btmp}):
+    \textcolor{root}{pi#} \textcolor{command}{lastb} [-aiF]
+    
+- see sudo logs:
+    \textcolor{user}{pi\$} \textcolor{command}{grep} "sudo" \textcolor{file}{/var/log/auth.log}
+\end{Verbatim}
+
+\subsection{?}
+\begin{Verbatim}[commandchars=\\\{\}]
+/etc/rsyslog.conf
+    
+What logs are where
+Log rotation (logrotate)
+
+
+man logrotate
+\url{https://www.linode.com/docs/guides/use-logrotate-to-manage-log-files/}
+\end{Verbatim}
+
+\section{IDS and IPS}
+\begin{Verbatim}[commandchars=\\\{\}]
+snort, fail2ban, ossec
+\end{Verbatim}
+
+\section{Monitoring}
+\subsection{ntpd}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Installation:
+    \textcolor{root}{pi#} apt install ntp
+
+- Enable:
+    \textcolor{root}{pi#} systemctl enable ntp.service
+\end{Verbatim}
+
+\subsection{Zabbix}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Original documentation:
+\url{https://www.zabbix.com/download?zabbix=5.4&os_distribution=raspberry_pi_os&os_version=10_buster&db=mysql&ws=apache}
+
+- Installation:
+    \textcolor{root}{pi#} wget https://repo.zabbix.com/zabbix/5.4/raspbian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian10_all.deb
+    \textcolor{root}{pi#} dpkg -i zabbix-release_5.4-1+debian10_all.deb
+    \textcolor{root}{pi#} apt update 
+    \textcolor{root}{pi#} apt install zabbix-server-mysql zabbix-frontend-php 
+    zabbix-apache-conf zabbix-sql-scripts zabbix-agent 
+
+- Create database:
+    \textcolor{root}{pi#} mysql -uroot -p
+password: *****
+    mysql> create database zabbix character set utf8 collate utf8_bin;
+    mysql> create user zabbix@localhost identified by '<PASSWORD>';
+    mysql> grant all privileges on zabbix.* to zabbix@localhost;
+    mysql> quit;
+    zcat /usr/share/doc/zabbix-sql-scripts/mysql/create.sql.gz | mysql -uzabbix -p zabbix
+
+- Configure database:
+File (\textcolor{file}{/etc/zabbix/zabbix_server.conf}):
+DBName=zabbix
+DBUser=zabbix
+DBPassword=<PASSWORD> 
+
+- Start and enable zabbix processes:
+    \textcolor{root}{pi#} systemctl restart zabbix-server.service zabbix-agent.service apache2.service 
+    \textcolor{root}{pi#} systemctl enable zabbix-server zabbix-agent apache2 
+
+- BUG fix (not showing MySQL):
+    \textcolor{root}{pi#} apt install php7.3-mysql
+
+- Connect to zabbix frontend:
+http://<HOSTNAME|IP>/zabbix
+ 
+- Frontend config:
+Database type: MySQL / PostgreSQL
+Database host: localhost
+Database port: 0 (default = 3306)
+Database name: zabbix
+User: zabbix
+Password: *****
+Host: localhost
+Port: 10051
+Name: zabbix (frontend page name only, not important)
+Default time zone: System (UTC)
+Default theme; Blue
+
+- FW ports:
+TCP: 80, 443, 10050, 10051
+
+- Default credentials:
+Admin
+zabbix
+
+
+
+/etc/zabbix/web/zabbix.conf.php
+
+
+
+new tty/ssh login
+new ssh established connection
+low disk space
+CPU/RAM/TEMPERATURE load for 5 minutes
+IDS/IPS logs
+no internet connection
+turn on/off
+honeypot logs
+\end{Verbatim}
+
+\section{Cron}
+\begin{Verbatim}[commandchars=\\\{\}]
+Auto update
+auto remove unused packages
+logrotate
+\end{Verbatim}
+
+\section{Honepot}
+
+\section{SSH}
+\subsection{Installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+openssh-client
+openssh-server
+\end{Verbatim}
+
+\subsection{SSHD Config}
+\begin{Verbatim}[commandchars=\\\{\}]
+Config (\textcolor{file}{/etc/ssh/sshd_config})(0644):
+\textcolor{comment}{# Port:}
+Port 22
+\textcolor{comment}{# Both: any; IPv4: inet; IPv6: inte6:}
+AddressFamily inet
+\textcolor{comment}{# Listen Address (0.0.0.0 = any):}
+ListenAddress 0.0.0.0
+
+\textcolor{comment}{# Root logins [prohibit-password]:}
+PermitRootLogin prohibit-password
+\textcolor{comment}{# Allow specific users (separated by spaces):}
+AllowUsers pi
+\textcolor{comment}{# If ~/.ssh/rc file is executed. [yes]:}
+PermitUserRC no
+
+\textcolor{comment}{# Server disconnects, if user did not logged in seconds [120]:}
+LoginGraceTime 60
+\textcolor{comment}{# Max number of auth attempts.}
+\textcolor{comment}{# If number of failures reaches half, additional failures are logged [6]:}
+MaxAuthTries 1
+\textcolor{comment}{# Max sessions. [10]:}
+MaxSessions 1
+
+\textcolor{comment}{# Banner <none> o <PATH/TO/FILE>:}
+Banner none
+\textcolor{comment}{# If "/etc/motd" is printed [yes]:}
+PrintMotd no
+\textcolor{comment}{# Logging (QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG1, DEBUG2, and DEBUG3):}
+LogLevel: VERBOSE
+\end{Verbatim}
+\subsection{PAM Config}
+\begin{Verbatim}[commandchars=\\\{\}]
+Lock Account (\textcolor{file}{/etc/pam.d/common-auth})(0644):
+\textcolor{comment}{After 3 fails lock acc+root for 60s and log in audit:}
+\textcolor{comment}{# Add before first config block}
+auth required pam_tally2.so deny=3 unlock_time=60
+...
+\end{Verbatim}
+\subsection{Run on startup}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{root}{pi#} \textcolor{command}{systemctl} enable ssh.service
+\end{Verbatim}
+
+\subsection{IDS}
+\begin{Verbatim}[commandchars=\\\{\}]
+\url{https://www.howtogeek.com/675010/how-to-secure-your-linux-computer-with-fail2ban/}
+\url{http://support.moonpoint.com/os/unix/linux/centos/fail2ban-logging.php}
+\end{Verbatim}
+
+
+\subsection{ToDo}
+\begin{Verbatim}[commandchars=\\\{\}]
+ssh key pair + password
+logging
+error message too many auth fails
+
+Auto software update - cron
+IPS - fail2ban
+FW logs
+\end{Verbatim}
+
+
+\section{VNC}
+\subsection{VNC server installation}
+\begin{Verbatim}[commandchars=\\\{\}]
+SERVER Install x11vnc server:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install x11vnc
+
+CLIENT VNC software:
+    \textcolor{root}{root#} \textcolor{command}{apt} install [xtightvncviewer|tigervnc-viewer]
+\end{Verbatim}
+
+\subsection{VNC server test}
+\begin{Verbatim}[commandchars=\\\{\}]
+Test-run x11vnc server (UNSECURE, NO PASSWORD!)
+SERVER:
+    \textcolor{user}{pi\$} \textcolor{command}{x11vnc} -display :0
+
+CLIENT:
+    \textcolor{user}{client\$} \textcolor{command}{vncviewer} <IP_ADDRESS>::<PORT>
+\end{Verbatim}
+
+\subsection{VNC server Run and Connect to}
+\begin{Verbatim}[commandchars=\\\{\}]
+Run server with SSH tunnel:
+SERVER (run 512MB for GFX memory):
+    \textcolor{user}{pi\$} \textcolor{command}{x11vnc} -display :0 -rfbport 5900 -no6 -input "KMBCF" -forever 
+    -nevershared -allow "127.0.0.1" -localhost -listen "localhost" 
+    -noxdamage -logappend \textcolor{file}{~/.vnc/logs} [-ncache 10] -usepw
+
+CLIENT:
+Window1:
+    \textcolor{user}{user\$} \textcolor{command}{ssh} -t -L 11111:localhost:5900 pi@<IPv4>
+Window2:
+    \textcolor{user}{user\$} \textcolor{command}{vncviewer} localhost:11111
+\end{Verbatim}
+
+\subsection{VNC change password during live run}
+\begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{user}{pi\$} \textcolor{command}{vncpasswd}
+
+Password file is stored in:
+\textcolor{file}{~/.vnc/passwd}
+\textit{Only first 8 chars are required to login.}
+\end{Verbatim}
+
+\subsection{VNC after reboot}
+\begin{Verbatim}[commandchars=\\\{\}]
+NOT YET
+
+Lets Try tigervnc
+\end{Verbatim}
+
+
+
+
+
+
+\section{ToDo}
+\begin{Verbatim}[commandchars=\\\{\}]
+VNC start on boot
+DNS + DNS Filtering
+Static IP
+Doas
+\end{Verbatim}
+
+
+\chapter{ToDo}
+\section{Check Temperature}
+\begin{Verbatim}[commandchars=\\\{\}]
+Returns the temperature of the SoC as measured by the on-board temperature sensor
+
+vcgencmd measure_temp
+
+Install SW:
+git, htop
+
+SW needed:
+vim
+git
+\end{Verbatim}
+
+
+
+
+
+\end{document}
