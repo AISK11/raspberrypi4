@@ -239,9 +239,42 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OS Installation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Check SD card}
+\section{Check for Bad Sectors}
+\textbf{Block:} = every file must occupy at least 1 block. 0b file occupy whole block.\newline
+512b = good for lot of small files. More blocks = more metadata.\newline
+4096b =  good for larger files, less metadata. Waste if there are small files.
+\subsection{OPTIONAL - Get More Info}
+\begin{Verbatim}[commandchars=\\\{\}]
+- Info about block devices:
+\textcolor{user}{user\$}  \textcolor{command}{lsblk} [-ap | -apf]
+\textcolor{root}{root#}  \textcolor{command}{fdisk -l} <\textcolor{block}{/dev/sdX}>
+\textcolor{root}{root#}  \textcolor{command}{blkid}
+
+- Get disk blocksize in bytes:
+\textcolor{root}{root#} \textcolor{command}{blockdev} [-v] --getbsz <\textcolor{block}{/dev/sdX[Y]}>
+
+- Get disk size in bytes:
+\textcolor{root}{root#} \textcolor{command}{blockdev} [-v] --getsize64 <\textcolor{block}{/dev/sdX[Y]}>
+
+- Check if device is readonly (1 = ro, 0 = rw):
+\textcolor{root}{root#} \textcolor{command}{blockdev} [-v] --getro <\textcolor{block}{/dev/sdX[Y]}>
+\end{Verbatim}
+
+\subsection{Check}
+\begin{Verbatim}[commandchars=\\\{\}]
+HAVE UMOUNTED FS!!!
+
+- Check for bad blocks:
+\textcolor{root}{root#} \textcolor{command}{badblocks} [-b 4096] [-w [-t 0xaa]] [-v] [-s] [-o <FILE>] <\textcolor{block}{/dev/sdX[Y]}>
+# -w = write patterns to every byte (0xaa)
+\end{Verbatim}
+
 \chapter{OS Installation}
 \section{Download OS}
+\subsection{32-bit}
 \underline{\url{https://www.raspberrypi.org/software/operating-systems/}}\newline
+\subsection{64-bit (recommended)}
 \underline{\url{https://downloads.raspberrypi.org/raspios_lite_arm64/images/}}
 \subsection{Check SHA256 checksum}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -269,6 +302,9 @@ Create VFAT filesystem:
 \end{Verbatim}
 \subsection{exFAT > 32GB (NOT NEEDED)}
 \begin{Verbatim}[commandchars=\\\{\}]
+Install exfat:
+    \textcolor{root}{pi#} \textcolor{command}{apt} install exfat-utils
+
 Format:
     \textcolor{root}{pi#} \textcolor{command}{mkfs.exfat} <\textcolor{block}{/dev/sdXY}>
     
@@ -286,26 +322,26 @@ Check:
 Note: wait a few minutes till FS loads first, if necessary, restart monitor.
 \end{Verbatim}
 
-\section{WiP - First boot monitorless access:}
-\begin{Verbatim}[commandchars=\\\{\}]
-mount /dev/sdX1 /mnt/<dir>/
+%\section{WiP - First boot headless access:}
+%\begin{Verbatim}[commandchars=\\\{\}]
+%mount /dev/sdX1 /mnt/<dir>/
+%
+%\textcolor{dir}{/mnt/<dir>/}\textcolor{file}{wpa_supplicant.conf}:
+%ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+%update_config=1
+%country=<2 LETTER ISO CODE>
 
-\textcolor{dir}{/mnt/<dir>/}\textcolor{file}{wpa_supplicant.conf}:
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-country=<2 LETTER ISO CODE>
+%network=\{
+%    ssid="<ESSID>"
+%    scan_ssid=1 \textcolor{comment}{# Find hidden network}
+%    key_mgmt=WPA-PSK WPA-EAP
+%    \textcolor{comment}{#psk="<PLAINTEXT-PASSWD>"}
+%    psk=<32byte-HEX-NUMBER>
+%    priority=1 \textcolor{comment}{# To which WiFi connect first}
+%\}
 
-network=\{
-    ssid="<ESSID>"
-    scan_ssid=1 \textcolor{comment}{# Find hidden network}
-    key_mgmt=WPA-PSK WPA-EAP
-    \textcolor{comment}{#psk="<PLAINTEXT-PASSWD>"}
-    psk=<32byte-HEX-NUMBER>
-    priority=1 \textcolor{comment}{# To which WiFi connect first}
-\}
-
-umount /dev/sdX1
-\end{Verbatim}
+%umount /dev/sdX1
+%\end{Verbatim}
 
 \section{Finishing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -325,12 +361,6 @@ Username: \textbf{pi}
 Password: \textbf{raspberry}
 \end{Verbatim}
 
-\subsection{Update}
-\begin{Verbatim}[commandchars=\\\{\}]
-    \textcolor{root}{pi#} \textcolor{command}{apt} update
-    \textcolor{root}{pi#} \textcolor{command}{apt} <upgrade|full-upgrade>
-\end{Verbatim}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Firs Start %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -348,8 +378,8 @@ disable_overscan=1
 gpu_mem=512
 \end{Verbatim}
 \section{Rfkill}
+\section{Block BT, unblock WiFi}
 \begin{Verbatim}[commandchars=\\\{\}]
-- Block BT, unblock WiFi:
     \textcolor{user}{pi\$} \textcolor{command}{rfkill} list
     0: phy0: Wireless LAN
         Soft blocked: yes
@@ -373,7 +403,8 @@ gpu_mem=512
 \section{Password}
 \begin{Verbatim}[commandchars=\\\{\}]
 - User password change:
-    \textcolor{user}{pi\$} \textcolor{command}{passwd}
+A)  \textcolor{user}{pi\$} \textcolor{command}{passwd}
+B)  \textcolor{root}{pi#} \textcolor{command}{passwd} <pi>
    
 - Root password set/change: 
     \textcolor{root}{pi#} \textcolor{command}{passwd} root
@@ -498,12 +529,24 @@ wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
     \textcolor{root}{pi#} \textcolor{command}{systemctl} disable networking.service
 \end{Verbatim}
 \subsection{WiFi Settings}
+\subsubsection{Scan for APs}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{iwlist} <wlan0> scan [| \textcolor{command}{grep} -i ssid]
+\end{Verbatim}
+
+\subsubsection{Generate WPA PSK}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{wpa_passphrase} <SSID> <PASSWORD>
+\end{Verbatim}
+
 \begin{Verbatim}[commandchars=\\\{\}]
 File: (\textcolor{file}{/etc/wpa_supplicant/wpa_supplicant.conf}) (0600):
 \textcolor{comment}{# Basic settings and language for zones:}
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 country=<2 LETTER ISO CODE>
+\textcolor{comment}{# Disable mysterious p2p device:}
+p2p_disabled=1
 
 \textcolor{comment}{# Password protected:}
 network=\{
@@ -549,11 +592,12 @@ File: (\textcolor{file}{/etc/dhcpcd.conf}):
 File: (\textcolor{file}{/etc/resolv.conf}) (0644):
 \textcolor{comment}{# Uncensored DNS - Denmark - Unicast}
 nameserver 89.233.43.71
-#nameserver 1.1.1.1
-#nameserver 1.0.0.1
 \textcolor{comment}{# CZ.NIC}
 nameserver 193.17.47.1
 nameserver 185.43.135.1
+\textcolor{comment}{# Quad9}
+nameserver 1.1.1.1
+nameserver 1.0.0.1
 \end{Verbatim}
 
 \subsection{Change MAC address on startup}
@@ -601,9 +645,6 @@ iface eth0 inet static
 \subsubsection{Installation}
 \begin{Verbatim}[commandchars=\\\{\}]
     \textcolor{root}{pi#} \textcolor{command}{apt} install dnsmasq
-    
-- Example config file:
-(\underline{\url{https://github.com/imp/dnsmasq/blob/master/dnsmasq.conf.example}})
 \end{Verbatim}
 
 \subsubsection{Configuration}
@@ -664,7 +705,14 @@ Temporary file: \textcolor{file}{/proc/sys/net/ipv4/conf/<eth0|wlan0>/forwarding
     \textcolor{root}{pi#} \textcolor{command}{iptables-save} > \textcolor{file}{/etc/iptables/rules.v4}
 \end{Verbatim}
 
-\subsubsection{WiP - ToDo}
+\subsection{Check ethernet connection speed}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi\$} \textcolor{command}{ethtool} <eth0>
+\end{Verbatim}
+
+
+
+\subsection{WiP - ToDo}
 \begin{Verbatim}[commandchars=\\\{\}]
 WHAT IS NOT WORKING:
 - not getting any DNS server from DHCP server
@@ -752,7 +800,7 @@ fi
     \textcolor{root}{pi#} \textcolor{command}{apt} install i3 --no-install-recommends
     \textcolor{root}{pi#} \textcolor{command}{apt} install i3-wm 
 \end{Verbatim}
-\subsection{i3-gaps from source}
+\subsection{i3-gaps from source (do not install with i3)}
 \begin{Verbatim}[commandchars=\\\{\}]
 URL: (\underline{https://github.com/Airblader/i3/wiki/Building-from-source})
 
@@ -763,7 +811,7 @@ URL: (\underline{https://github.com/Airblader/i3/wiki/Building-from-source})
 
 
 - Install dependencies
-    \textcolor{root}{pi#} \textcolor{command}{apt} install meson
+    \textcolor{root}{pi#} \textcolor{command}{apt} install make meson
     \textcolor{root}{pi#} \textcolor{command}{apt} install dh-autoreconf libxcb-keysyms1-dev 
 libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev
 libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev 
@@ -865,19 +913,6 @@ Directories:
     \textcolor{dir}{.themes}
     \textcolor{dir}{.icons}
 \end{Verbatim}
-\subsection{Cursor}
-\begin{Verbatim}[commandchars=\\\{\}]
-URL: \underline{https://github.com/varlesh/volantes-cursors}
-
-- Install dependencies:
-    \textcolor{root}{pi#} \textcolor{command}{apt} install git make inkscape xcursorgen
-
-- Install cursor:
-    \textcolor{user}{pi\$} \textcolor{command}{git} clone https://github.com/varlesh/volantes-cursors
-    \textcolor{user}{pi\$} \textcolor{command}{cd} \textcolor{dir}{volantes-cursors}
-    \textcolor{user}{pi\$} \textcolor{command}{make} build
-    \textcolor{root}{pi#} \textcolor{command}{make} install
-\end{Verbatim}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -913,7 +948,7 @@ CONF_SWAPSIZE=2048
 - Download dependencies:
     \textcolor{root}{pi#} \textcolor{command}{apt} install -y build-essential python3-dev
     
-- Check if 64bit adchitecture of python is installed:
+- Check if 64bit architecture of python is installed:
     \textcolor{user}{pi#} \textcolor{command}{python3} -c 'import platform; print(platform.architecture))'
 OUTPUT: ('64bit', 'ELF')
 \end{Verbatim}
@@ -967,7 +1002,7 @@ self_hostname: &self_hostname "127.0.0.1"
     \textcolor{root}{pi#} \textcolor{command}{mount} <\textcolor{block}{/dev/sda1}> \textcolor{dir}{/mnt/chia/hdd01}
     \textcolor{root}{pi#} \textcolor{command}{mount} <\textcolor{block}{/dev/sdb1}> \textcolor{dir}{/mnt/chia/hdd01}
 
-- Configure fstab:
+- Configure fstab for auto mount:
 1. see UUIDs of block devices:
     \textcolor{root}{pi#} \textcolor{command}{blkid}
 
@@ -979,15 +1014,17 @@ UUID="<UUID>"   /mnt/chia/hdd01     ext4    defaults,noatime    0 2
 UUID="<UUID>"   /mnt/chia/hdd02     ext4    defaults,noatime    0 2
 
 
-/etc/fstab ????
-
-crontab for harddrives
-
-crontab for auto update
-
+-------------- WiP -----------------
+crontab for harddrives to prevent safe mode and long wake up time
 \end{Verbatim}
 
-
+\section{Start Chia after reboot}
+\begin{Verbatim}[commandchars=\\\{\}]
+    \textcolor{user}{pi#} \textcolor{command}{cd} \textcolor{dir}{chia-blockchain/}
+    \textcolor{user}{pi#} \textcolor{dir}{.} \textcolor{file}{./activate}
+    \textcolor{user}{(venv) pi#} \textcolor{command}{cd} \textcolor{dir}{chia-blockchain-gui/}
+    \textcolor{user}{(venv) pi#} \textcolor{command}{npm} run electron &
+\end{Verbatim}
 
 
 
