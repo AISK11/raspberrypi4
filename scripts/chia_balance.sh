@@ -16,5 +16,5 @@ if [[ -z ${BALANCE} ]] || [[ -z ${CHIA_PRICE} ]] || [[ -z ${USD_TO_EUR} ]]; then
     echo "Error!"
 else
     EUR=$(python3 -c "print(${BALANCE} * ${CHIA_PRICE} * ${USD_TO_EUR})")
-    echo "${BALANCE} XCH * ${CHIA_PRICE} USD * ${USD_TO_EUR} EUR/USD = ${EUR} EUR"
+    echo "${BALANCE} XCH * ${CHIA_PRICE} USD * ${USD_TO_EUR} USD>EUR = ${EUR} EUR"
 fi
