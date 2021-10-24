@@ -15,8 +15,7 @@ USD_TO_EUR=$(curl -s 'https://wise.com/us/currency-converter/usd-to-eur-rate' | 
 if [[ -z ${BALANCE} ]] || [[ -z ${CHIA_PRICE} ]] || [[ -z ${USD_TO_EUR} ]]; then
     echo "Error!"
 else
-    echo "${BALANCE} * ${CHIA_PRICE} * ${USD_TO_EUR}"
+    #echo "${BALANCE} * ${CHIA_PRICE} * ${USD_TO_EUR}"
     EUR=$(python3 -c "print(${BALANCE} * ${CHIA_PRICE} * ${USD_TO_EUR})")
     echo "${EUR} EUR"
-    #echo " = $((BALANCE*CHIA_PRICE*USD_TO_EUR)) Eur."
 fi
